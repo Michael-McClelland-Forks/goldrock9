@@ -44,7 +44,7 @@ try:
 except kms_client.exceptions.NotFoundException:
   key_exists = False
 if not key_exists:
-  response = kms_client.replicate_key(
+  response = kms_home_region_client.replicate_key(
     KeyId=kms_home_region_response['KeyMetadata']['KeyId'],
     ReplicaRegion=os.environ['PY_REGION'],
     BypassPolicyLockoutSafetyCheck=False
