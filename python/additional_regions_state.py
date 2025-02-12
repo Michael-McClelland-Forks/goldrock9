@@ -18,10 +18,14 @@ try:
   bucket_exists = True
 except botocore.exceptions.ClientError:
   bucket_exists = False
-if not bucket_exists:
+if not bucket_exists and os.environ['PY_REGION'] != 'us-east-1':
   s3_client.create_bucket(
   Bucket='goldrock-tfstate-' + account_id + '-' + os.environ['PY_REGION'], 
   CreateBucketConfiguration={'LocationConstraint': os.environ['PY_REGION']}
+  )
+if not bucket_exists and os.environ['PY_REGION'] == 'us-east-1':
+  s3_client.create_bucket(
+  Bucket='goldrock-tfstate-' + account_id + '-' + os.environ['PY_REGION']
   )
 ######
 
