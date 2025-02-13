@@ -29,10 +29,10 @@ exports.handler = async function() {
     url = `${baseUrl}?Action=login&Destination=${encodeURIComponent(destination)}&SigninToken=${encodeURIComponent(signinToken)}`;
   });
   const browser = await puppeteer.launch({ headless: true, 
-  //   args: [
-  //   `--no-sandbox`,
-  //   `--disable-setuid-sandbox`
-  // ], 
+    args: [
+    `--no-sandbox`,
+    `--disable-setuid-sandbox`
+  ], 
     slowMo: 200 });
   const page = await browser.newPage();
   await page.goto(url);
