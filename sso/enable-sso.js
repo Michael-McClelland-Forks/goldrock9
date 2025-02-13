@@ -33,13 +33,13 @@ exports.handler = async function() {
     `--no-sandbox`,
     `--disable-setuid-sandbox`
   ], 
-    slowMo: 200 });
+    slowMo: 500 });
   const page = await browser.newPage();
   await page.goto(url);
   await page.goto('https://'+process.env.region+'.console.aws.amazon.com/singlesignon/home?region='+process.env.region+'#!/');
-  await page.waitForSelector("::-p-xpath(//button[@data-testid='enable-sso-btn'])");
-  const button = await page.waitForSelector("::-p-xpath(//button[@data-testid='enable-sso-btn'])");
-  await button.click();
+  await page.goto('https://'+process.env.region+'.console.aws.amazon.com/singlesignon/home?region='+process.env.region+'#!/enable-iam-identity-center');
+  await page.$('xpath///*[@data-analytics="enable-idc-actions__enable"]')
+  await page.click('xpath///*[@data-analytics="enable-idc-actions__enable"]')
   await new Promise(r => setTimeout(r, 60000));
   browser.close
   process.exit(0)
