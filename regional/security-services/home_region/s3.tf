@@ -17,10 +17,8 @@ data "aws_iam_policy_document" "cloudtrail" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
     actions = [
-      "s3:GetBucketAcl",
-      "s3:ListBucket"
+      "s3:GetBucketAcl"
     ]
-
     resources = [
       "${aws_s3_bucket.cloudtrail.arn}"
     ]
@@ -29,6 +27,28 @@ data "aws_iam_policy_document" "cloudtrail" {
       variable = "aws:SourceArn"
       values = [
         "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
+      ]
+    }
+  }
+
+  statement {
+    sid    = "getbucketacl-cloudtrail"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = [
+      "${aws_s3_bucket.cloudtrail.arn}"
+    ]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values = [
+        "${data.aws_organizations_organization.organization.master_account_id}"
       ]
     }
   }
