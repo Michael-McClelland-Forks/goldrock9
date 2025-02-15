@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "cloudtrail" {
   }
 
   statement {
-    sid    = "getbucketacl-cloudtrail"
+    sid    = "cloudtrail-headbucket"
     effect = "Allow"
     principals {
       type        = "Service"
