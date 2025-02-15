@@ -17,7 +17,8 @@ data "aws_iam_policy_document" "cloudtrail" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
     actions = [
-      "s3:GetBucketAcl"
+      "s3:GetBucketAcl",
+      "s3:ListBucket"
     ]
 
     resources = [
