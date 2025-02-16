@@ -65,7 +65,11 @@ data "aws_iam_policy_document" "cloudtrail" {
     ]
     resources = [
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/*",
+      "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/CloudTrail-Digest/*",
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.master_account_id}/*"
+
+
+      /CloudTrail-Digest/
     ]
     # condition {
     #   test     = "StringEquals"
