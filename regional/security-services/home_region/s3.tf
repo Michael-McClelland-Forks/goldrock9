@@ -67,13 +67,13 @@ data "aws_iam_policy_document" "cloudtrail" {
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/*",
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.master_account_id}/*"
     ]
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceArn"
-      values = [
-        "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
-      ]
-    }
+    # condition {
+    #   test     = "StringEquals"
+    #   variable = "aws:SourceArn"
+    #   values = [
+    #     "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
+    #   ]
+    # }
     condition {
       test     = "StringEquals"
       variable = "aws:SourceOrgID"
