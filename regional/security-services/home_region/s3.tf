@@ -45,14 +45,14 @@ data "aws_iam_policy_document" "cloudtrail" {
   #   resources = [
   #     "${aws_s3_bucket.cloudtrail.arn}"
   #   ]
-    # condition {
-    #   test     = "StringEquals"
-    #   variable = "aws:SourceAccount"
-    #   values = [
-    #     "${data.aws_organizations_organization.organization.master_account_id}"
-    #   ]
-    # }
-  }
+  #   condition {
+  #     test     = "StringEquals"
+  #     variable = "aws:SourceAccount"
+  #     values = [
+  #       "${data.aws_organizations_organization.organization.master_account_id}"
+  #     ]
+  #   }
+  # }
 
   statement {
     sid    = "putobject-cloudtrail"
