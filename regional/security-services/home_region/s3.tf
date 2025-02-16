@@ -22,13 +22,13 @@ data "aws_iam_policy_document" "cloudtrail" {
     resources = [
       "${aws_s3_bucket.cloudtrail.arn}"
     ]
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceArn"
-      values = [
-        "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
-      ]
-    }
+    # condition {
+    #   test     = "StringEquals"
+    #   variable = "aws:SourceArn"
+    #   values = [
+    #     "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
+    #   ]
+    # }
   }
 
   statement {
@@ -74,13 +74,13 @@ data "aws_iam_policy_document" "cloudtrail" {
     #     "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.id}:${data.aws_organizations_organization.organization.master_account_id}:trail/goldrock"
     #   ]
     # }
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceOrgID"
-      values = [
-        "${data.aws_organizations_organization.organization.id}"
-      ]
-    }
+    # condition {
+    #   test     = "StringEquals"
+    #   variable = "aws:SourceOrgID"
+    #   values = [
+    #     "${data.aws_organizations_organization.organization.id}"
+    #   ]
+    # }
   }
 
   statement {
