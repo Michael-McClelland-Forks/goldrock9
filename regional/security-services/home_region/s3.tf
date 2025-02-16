@@ -65,11 +65,8 @@ data "aws_iam_policy_document" "cloudtrail" {
     ]
     resources = [
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/*",
-      "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/CloudTrail-Digest/*",
+      //"${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.id}/CloudTrail-Digest/*",
       "${aws_s3_bucket.cloudtrail.arn}/${var.name}/AWSLogs/${data.aws_organizations_organization.organization.master_account_id}/*"
-
-
-      /CloudTrail-Digest/
     ]
     # condition {
     #   test     = "StringEquals"
@@ -111,50 +108,50 @@ data "aws_iam_policy_document" "cloudtrail" {
     }
   }
 
-  statement {
-    effect = "Deny"
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "s3:PutObject",
-    ]
+  # statement {
+  #   effect = "Deny"
+  #   principals {
+  #     type        = "AWS"
+  #     identifiers = ["*"]
+  #   }
+  #   actions = [
+  #     "s3:PutObject",
+  #   ]
 
-    resources = [
-      "${aws_s3_bucket.cloudtrail.arn}/*"
-    ]
-    condition {
-      test     = "StringNotEqualsIfExists"
-      variable = "s3:x-amz-server-side-encryption"
-      values   = ["aws:kms"]
-    }
-    condition {
-      test     = "Null"
-      variable = "s3:x-amz-server-side-encryption"
-      values   = ["false"]
-    }
-  }
+  #   resources = [
+  #     "${aws_s3_bucket.cloudtrail.arn}/*"
+  #   ]
+  #   condition {
+  #     test     = "StringNotEqualsIfExists"
+  #     variable = "s3:x-amz-server-side-encryption"
+  #     values   = ["aws:kms"]
+  #   }
+  #   condition {
+  #     test     = "Null"
+  #     variable = "s3:x-amz-server-side-encryption"
+  #     values   = ["false"]
+  #   }
+  # }
 
-  statement {
-    effect = "Deny"
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    actions = [
-      "s3:PutObject",
-    ]
+  # statement {
+  #   effect = "Deny"
+  #   principals {
+  #     type        = "AWS"
+  #     identifiers = ["*"]
+  #   }
+  #   actions = [
+  #     "s3:PutObject",
+  #   ]
 
-    resources = [
-      "${aws_s3_bucket.cloudtrail.arn}/*"
-    ]
-    condition {
-      test     = "StringNotEquals"
-      variable = "s3:x-amz-server-side-encryption-aws-kms-key-id"
-      values   = [aws_kms_key.key.arn]
-    }
-  }
+  #   resources = [
+  #     "${aws_s3_bucket.cloudtrail.arn}/*"
+  #   ]
+  #   condition {
+  #     test     = "StringNotEquals"
+  #     variable = "s3:x-amz-server-side-encryption-aws-kms-key-id"
+  #     values   = [aws_kms_key.key.arn]
+  #   }
+  # }
 
   statement {
     effect = "Allow"
